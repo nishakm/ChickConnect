@@ -161,13 +161,92 @@
       };
       
       $scope.findMentors = function() {
+      	$http.get('Mentors.json')
+       	.then(function(res){
+		mentors = res.data;
+		var interest_mentors = [];
+		var personality_mentors = [];
+		var style_mentors = [];
+		if ( $scope.interestsSelection.length > 0){
+			for (i = 0; i < mentors.length; i++){
+				matches = 0;
+				for (j = 0; j < mentors[i].interests.length; j++){
+					for(k = 0; k < $scope.interestsSelection.length; k++){
+						if($scope.interestsSelection[k] == mentors[i].interests[j]){
+							matches = matches + 1;
+						}
+					}
+				}
+
+				if ( matches > 0){
+
+					interest_mentors.push(mentors[i]);
+
+				
+				}
+
+			}
+		}
+		else {
+			for(i=0; i<mentors.length; i++){
+				interest_mentors.push(mentors[i]);
+			}
+		}
+		if ( $scope.personalitiesSelection.length > 0){
+			for (i = 0; i < interest_mentors.length; i++){
+				matches = 0;
+				for (j = 0; j < interest_mentors[i].personalities.length; j++){
+					for(k = 0; k < $scope.personalitiesSelection.length; k++){
+						if($scope.personalitiesSelection[k] == interest_mentors[i].personalities[j]){
+							matches = matches + 1;
+						}
+					}
+				}
+
+				if ( matches > 0){
+
+					personality_mentors.push(interest_mentors[i]);
+
+				
+				}
+
+			}
+		}
+		else {
+			for(i=0; i<interest_mentors.length; i++){
+				personality_mentors.push(interest_mentors[i]);
+			}
+		}
+		if ( $scope.learningTypesSelection.length > 0){
+			for (i = 0; i < personality_mentors.length; i++){
+				matches = 0;
+				for (j = 0; j < personality_mentors[i].learningTypes.length; j++){
+					for(k = 0; k < $scope.learningTypesSelection.length; k++){
+						if($scope.learningTypesSelection[k] == personality_mentors[i].learningTypes[j]){
+							matches = matches + 1;
+						}
+					}
+				}
+
+				if ( matches > 0){
+
+					style_mentors.push(personality_mentors[i]);
+
+				
+				}
+
+			}
+		}
+		else {
+			for (i=0; i< personality_mentors.length; i++){
+				style_mentors.push(personality_mentors[i])
+			}
+		}
+		$scope.mentors = style_mentors;
+        });
         
       };
       
-      $http.get('Mentors.json')
-       .then(function(res){
-          $scope.mentors = res.data;                
-        });
   
     });
   </script>
