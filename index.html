@@ -22,6 +22,7 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/chick.css">
   
   <style>
     .highlight {
@@ -84,8 +85,11 @@
 </form>
 <div class="row">
   <div class="ten columns">
-    <div ng-repeat="interest in interestsSelection">
-      {{interest}}
+    <div ng-repeat="mentor in mentors">
+      <div class="rcorners">
+        <p>{{mentor.name}}</p>
+      </div>
+      
     </div>
   </div>
 </div>
@@ -96,7 +100,7 @@
   
   <script>
     var app = angular.module('myApp', []);
-    app.controller('myCtrl', function($scope) {
+    app.controller('myCtrl', function($scope, $http) {
       $scope.interests=[
         'Robotics',
         'Art',
@@ -152,9 +156,14 @@
         }
       };
       
-      $scope.findMentors = function findMentors() {
+      $scope.findMentors = function() {
         
-      }
+      };
+      
+      $http.get('Mentors.json')
+       .then(function(res){
+          $scope.mentors = res.data;                
+        });
   
     });
   </script>
