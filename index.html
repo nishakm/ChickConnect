@@ -51,39 +51,44 @@
       </div>
     </div>
    <form>
-  <div class="row">
-    <div class="four columns">
-      <p>I'm interested in:</p>
-      <div ng-repeat="interest in interests">
-        <label class="interestLabel">
-        <input type="checkbox">
-          <span class="label-body">{{interest.interest}}</span>
-        </label>
+    <div class="row">
+      <div class="four columns">
+        <p>I'm interested in:</p>
+        <div ng-repeat="interest in interests">
+          <label class="profileLable">
+          <input type="checkbox" ng-checked="interestsSelection.indexOf(interest) > -1" ng-click="interestsToggle(interest)">
+            <span class="label-body">{{interest}}</span>
+          </label>
+        </div>
+      </div>
+      <div class="four columns">
+        <p>My personality type is:</p>
+        <div ng-repeat="personality in personalities">
+          <label class="profileLabel">
+          <input type="checkbox">
+            <span class="label-body">{{personality}}</span>
+          </label>
+        </div>
+      </div>
+      <div class="four columns">
+        <p>My learning type is:</p>
+        <div ng-repeat="learningType in learningTypes">
+          <label class="profileLabel">
+          <input type="checkbox">
+            <span class="label-body">{{learningType}}</span>
+          </label>
+        </div>
       </div>
     </div>
-    <div class="four columns">
-      <p>My personality type is:</p>
-      <div ng-repeat="interest in interests">
-        <label class="interestLabel">
-        <input type="checkbox">
-          <span class="label-body">{{interest.interest}}</span>
-        </label>
-      </div>
-    </div>
-        <div class="four columns">
-      <p>My learning type is:</p>
-      <div ng-repeat="interest in interests">
-        <label class="interestLabel">
-        <input type="checkbox">
-          <span class="label-body">{{interest.interest}}</span>
-        </label>
-      </div>
-    </div>
-  </div>
   <input class="button-primary" type="submit" value="Submit">
 </form>
-
+<div class="row">
+  <div class="ten columns">
+    <div ng-repeat="interest in interestsSelection">
+      {{interest}}
+    </div>
   </div>
+</div>
   
   <!-- Scrips below here
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -91,24 +96,59 @@
   <script>
     var app = angular.module('myApp', []);
     app.controller('myCtrl', function($scope) {
-    
-    $scope.interests=[
-      {interest: 'Robotics'},
-      {interest: 'Art'},
-      {interest: 'Career Development'}
-    ];
-    $scope.interestsSelection=[];  
-    //Toggle selection for interests
+      $scope.interests=[
+        'Robotics',
+        'Art',
+        'Career Development',
+        'Academic Advice',
+        'Science Project',
+        'Web Development',
+        'Math',
+        '3D printing'
+      ]; 
+      $scope.personalities=[
+        'Enthusiast',
+        'Challenger',
+        'Individualist',
+        'Achiever',
+        'Helper'
+      ];
+      $scope.learningTypes=[
+        'Visual',
+        'Auditory',
+        'Tactile'
+      ]; 
+      $scope.interestsSelection=[];
+      $scope.personalitiesSelection=[];
+      $scope.learningTypesSelection=[];
+      //Toggle selection for interests
       $scope.interestsToggle = function interestsToggle(intr) {
-        var idx = $scope.selection.indexOf(intr);
-        
-        if (idx > 1) {
-          $scope.selection.splice(idx,1);
+        var idx = $scope.interestsSelection.indexOf(intr);
+
+        if (idx >= 0) {
+          $scope.interestsSelection.splice(idx,1);
         } else {
-          $scope.selection.push(intr);
+          $scope.interestsSelection.push(intr);
         }
       };
-  
+      $scope.personalitiesToggle = function personalitiesToggle(intr) {
+        var idx = $scope.personalitiesSelection.indexOf(intr);
+
+        if (idx >= 0) {
+          $scope.personalitiesSelection.splice(idx,1);
+        } else {
+          $scope.personalitiesSelection.push(intr);
+        }
+      };
+      $scope.learningTypesToggle = function learningTypesToggle(intr) {
+        var idx = $scope.learningTypesSelection.indexOf(intr);
+
+        if (idx >= 0) {
+          $scope.learningTypesSelection.splice(idx,1);
+        } else {
+          $scope.learningTypesSelectionn.push(intr);
+        }
+      };
   
     });
   </script>
