@@ -80,7 +80,7 @@
         </div>
       </div>
     </div>
-  <input class="button-primary" type="submit" value="Submit">
+  <input class="button-primary" type="submit" value="Find Mentors" ng-click="findMentors()">
 </form>
 <div class="row">
   <div class="ten columns">
@@ -102,10 +102,11 @@
         'Art',
         'Career Development',
         'Academic Advice',
-        'Science Project',
+        'Science Projects',
         'Web Development',
         'Math',
-        '3D printing'
+        '3D Printing',
+        'Programming'
       ]; 
       $scope.personalities=[
         'Enthusiast',
@@ -150,6 +151,10 @@
           $scope.learningTypesSelection.push(intr);
         }
       };
+      
+      $scope.findMentors = function findMentors() {
+        
+      }
   
     });
   </script>
