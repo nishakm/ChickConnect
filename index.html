@@ -65,7 +65,7 @@
         <p>My personality type is:</p>
         <div ng-repeat="personality in personalities">
           <label class="profileLabel">
-          <input type="checkbox">
+          <input type="checkbox" ng-checked="personalitiesSelection.indexOf(personality) > -1" ng-click="personalitiesToggle(personality)">
             <span class="label-body">{{personality}}</span>
           </label>
         </div>
@@ -74,7 +74,7 @@
         <p>My learning type is:</p>
         <div ng-repeat="learningType in learningTypes">
           <label class="profileLabel">
-          <input type="checkbox">
+          <input type="checkbox" ng-checked="learningTypesSelection.indexOf(learningType) > -1" ng-click="learningTypesToggle(learningType)">
             <span class="label-body">{{learningType}}</span>
           </label>
         </div>
@@ -89,6 +89,7 @@
     </div>
   </div>
 </div>
+  </div>
   
   <!-- Scrips below here
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -146,7 +147,7 @@
         if (idx >= 0) {
           $scope.learningTypesSelection.splice(idx,1);
         } else {
-          $scope.learningTypesSelectionn.push(intr);
+          $scope.learningTypesSelection.push(intr);
         }
       };
   
