@@ -86,9 +86,13 @@
 <div class="row">
   <div class="ten columns">
     <div ng-repeat="mentor in mentors">
-      <div class="rcorners">
-        <p>{{mentor.name}}</p>
-      </div>
+      <div class="mentorblock">
+        <h5>{{mentor.name}}</h5>
+        <p><span>Interests: </span><span ng-repeat="interest in mentor.interests">{{interest}} </span></p>
+        <p><span>Mentoring styles: </span><span ng-repeat="learningType in mentor.learningTypes">{{learningType}} </span></p>
+        <p><span>Personality types: </span><span ng-repeat="personality in mentor.personalities">{{personality}} </span></p>
+        <p><a href="mailto:{{mentor.email}}">Contact me!</a></p>
+      </div><p/>
       
     </div>
   </div>
