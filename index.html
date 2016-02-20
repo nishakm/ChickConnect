@@ -6,7 +6,7 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta charset="utf-8">
-  <title>Litho Field Utilization Calculator</title>
+  <title>ChickConnect</title>
   <meta name="description" content="">
   <meta name="author" content="">
 
@@ -46,11 +46,42 @@
   <div class="container" ng-app="myApp" ng-controller="myCtrl">
     <div class="row">
       <div class="ten columns" style="margin-top: 10%">
-        <h3>Welcome!</h3>
+        <h3>Welcome mentee!</h3>
         <p>Tell us a bit about what you are interested in and we can help you find a mentor!</p>
       </div>
     </div>
-   
+   <form>
+  <div class="row">
+    <div class="four columns">
+      <p>I'm interested in:</p>
+      <div ng-repeat="interest in interests">
+        <label class="interestLabel">
+        <input type="checkbox">
+          <span class="label-body">{{interest.interest}}</span>
+        </label>
+      </div>
+    </div>
+    <div class="four columns">
+      <p>My personality type is:</p>
+      <div ng-repeat="interest in interests">
+        <label class="interestLabel">
+        <input type="checkbox">
+          <span class="label-body">{{interest.interest}}</span>
+        </label>
+      </div>
+    </div>
+        <div class="four columns">
+      <p>My learning type is:</p>
+      <div ng-repeat="interest in interests">
+        <label class="interestLabel">
+        <input type="checkbox">
+          <span class="label-body">{{interest.interest}}</span>
+        </label>
+      </div>
+    </div>
+  </div>
+  <input class="button-primary" type="submit" value="Submit">
+</form>
 
   </div>
   
@@ -61,62 +92,24 @@
     var app = angular.module('myApp', []);
     app.controller('myCtrl', function($scope) {
     
-      $scope.xyChanged = function() {
-        $scope.area = ($scope.width * $scope.height);
-        $scope.aspectRatio = ($scope.width / $scope.height);
-      }
-      
-      $scope.arChanged = function() {
-        $scope.width = Math.sqrt($scope.area * $scope.aspectRatio);
-        $scope.height = Math.sqrt($scope.area / $scope.aspectRatio);
-      }
-      
-      $scope.results = {
-        quotes: []
-      };
-      
-      $scope.genRes = function() {
-        if ($scope.isvalid()) {
-          $scope.results.quotes.push({
-            width: $scope.width.toFixed(3),
-            height: $scope.height.toFixed(3),
-            activeArea: ($scope.width * $scope.height).toFixed(3),
-            aspectRatio: ($scope.width / $scope.height).toFixed(3),
-             maturityDate: "1/23/2017",
-            earlyLFU: "87.22%",
-            matureLFU: "87.22%"
-          })
-        }
-      },
-      
-      $scope.removeQuote = function(index) {
-        $scope.results.quotes.splice(index, 1);
-      },
+    $scope.interests=[
+      {interest: 'Robotics'},
+      {interest: 'Art'},
+      {interest: 'Career Development'}
+    ];
+    $scope.interestsSelection=[];  
+    //Toggle selection for interests
+      $scope.interestsToggle = function interestsToggle(intr) {
+        var idx = $scope.selection.indexOf(intr);
         
-      $scope.isvalid = function() {
-        if (($scope.width==null) || ($scope.height==null)) {
-          alert("Please supply valid inputs.");
-          return false;
-        } else if ((($scope.width * $scope.height)>50) || (($scope.width / $scope.height) > 3.33) || (($scope.height / $scope.width) > 3.33) ) {
-          alert("That's too large or too skinny.  Possibly both!");
-          return false;
+        if (idx > 1) {
+          $scope.selection.splice(idx,1);
         } else {
-          return true;
+          $scope.selection.push(intr);
         }
-      },
-        
-      <!-- My rough estimate of LFU that assumes 0x scribes-->
-      $scope.calcLFU = function() {
-        var maxFieldW = 23.925888;
-        var maxFieldH = 32.59836;
-        var diePerField = Math.floor(maxFieldW/$scope.width)*Math.floor(maxFieldH/$scope.height);
-        return $scope.width*$scope.height*diePerField/(maxFieldH*maxFieldW);
-      },
-      $scope.calcDPW = function() {
-        var aa = $scope.width * $scope.height / 100;
-        var ar = Math.max($scope.width / $scope.height, $scope.height / $scope.width);
-        return Math.floor(3.1415*1.01*Math.pow(29.6,2)/(aa*4)*Math.exp(-0.0853*Math.pow(aa, 0.5)-0.006*ar))
-      }  
+      };
+  
+  
     });
   </script>
 
